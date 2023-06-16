@@ -2,9 +2,10 @@ Install nodeJS
 https://nodejs.org/en
 
 
-Install DiscordJS:
+Install DiscordJS: npm install discord.js
+&nbsp;
 https://discord.js.org/ -- Install this
-npm install discord.js
+
 
 Init Project: 
 npm init
