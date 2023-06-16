@@ -16,10 +16,13 @@ Create a file **.env**  with this structure:
 
 TOKEN=*************
 &nbsp;
+
 CLIENT_ID=*************
 &nbsp;
+
 GUILD_ID=************* <--- Development on a specific server
 &nbsp;
+
 
 Create commands:
 Create a file ending in **.js** in the commands folder.
