@@ -1,5 +1,7 @@
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] });
+const { sendMessageWithReaction, handleReaction, handleReactionRemove } = require('./othersfunctions/roleReact');
+
 
 //dotenv
 const dotenv = require('dotenv')
@@ -24,20 +26,34 @@ for (const file of commandFiles){
     } 
 }
 
+const CHANNEL_ID = '1131383499916595290' ;
+
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
      // Define o estado do bot
   client.user.setPresence({
-    activities: [{ name: 'Mensagem personalizada aqui!', type: 'PLAYING' }],
-    status: 'online', // Pode ser 'online', 'idle', 'dnd' (não perturbe) ou 'invisible' (invisível)
+    status: 'idle', // Pode ser 'online', 'idle', 'dnd' (não perturbe) ou 'invisible' (invisível)
   });
-});
 
+  const channel = client.channels.cache.get(CHANNEL_ID);
+
+  sendMessageWithReaction(channel);
+});
 
 
 client.login(TOKEN);
 
+
+//Reaction Add
+client.on(Events.MessageReactionAdd, async (reaction, user) => {
+    handleReaction(reaction, user);
+});
+
+//Reaction Remove
+client.on(Events.MessageReactionRemove, async (reaction, user) => {
+    handleReactionRemove(reaction, user);
+});
 
 //LISTENER BOT
 client.on(Events.InteractionCreate, async interaction =>{
