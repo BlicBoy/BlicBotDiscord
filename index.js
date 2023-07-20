@@ -27,7 +27,14 @@ for (const file of commandFiles){
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
+     // Define o estado do bot
+  client.user.setPresence({
+    activities: [{ name: 'Mensagem personalizada aqui!', type: 'PLAYING' }],
+    status: 'online', // Pode ser 'online', 'idle', 'dnd' (não perturbe) ou 'invisible' (invisível)
+  });
 });
+
+
 
 client.login(TOKEN);
 
@@ -50,4 +57,4 @@ client.on(Events.InteractionCreate, async interaction =>{
             console.error(error)
             await interaction.reply('ERROR COMMAND')
         }
-})
+});
